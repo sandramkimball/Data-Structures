@@ -10,9 +10,12 @@ class Stack:
 
     def push(self, value):
         pass
+    # arr[0].push(value)
 
     def pop(self):
         pass
+    # arr[:-1].pop
 
     def len(self):
         pass
+    # return len(arr)

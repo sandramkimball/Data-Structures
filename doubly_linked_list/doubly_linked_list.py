@@ -37,8 +37,6 @@ class ListNode:
 
 """Our doubly-linked list class. It holds references to
 the list's head and tail nodes."""
-
-
 class DoublyLinkedList:
     def __init__(self, node=None):
         self.head = node
@@ -51,8 +49,17 @@ class DoublyLinkedList:
     """Wraps the given value in a ListNode and inserts it 
     as the new head of the list. Don't forget to handle 
     the old head node's previous pointer accordingly."""
-    def add_to_head(self, value):
-        pass
+    def add_to_head(self):
+        new_node = ListNode(value, None, self.head)
+
+        if not self.head and not self.tail:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.head.prev = new_node
+            self.head = new_node
+
+        self.length += 1
 
     """Removes the List's current head node, making the
     current head's next node the new head of the List.
@@ -64,7 +71,15 @@ class DoublyLinkedList:
     as the new tail of the list. Don't forget to handle 
     the old tail node's next pointer accordingly."""
     def add_to_tail(self, value):
-        pass
+        new_node = ListNode(value, self.tail, None)
+        if not self.head and not self.tail:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            self.tail = new_node
+
+        self.length +=  1
 
     """Removes the List's current tail node, making the 
     current tail's previous node the new tail of the List.
@@ -85,8 +100,13 @@ class DoublyLinkedList:
     """Removes a node from the list and handles cases where
     the node was the head or the tail"""
     def delete(self, node):
-        pass
+        if self.tail:
+            node.prev.next = node.next
+        if self.head:
+            node.next.prev = node.prev
         
+        self.length -= 1
+
     """Returns the highest value currently in the list"""
     def get_max(self):
         pass
