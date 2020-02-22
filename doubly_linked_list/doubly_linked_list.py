@@ -64,8 +64,10 @@ class DoublyLinkedList:
     """Removes the List's current head node, making the
     current head's next node the new head of the List.
     Returns the value of the removed Node."""
-    def remove_from_head(self):
-        pass
+    def remove_from_head(self, node):
+        value = self.head.balue
+        self.delete(self.head)
+        return value
 
     """Wraps the given value in a ListNode and inserts it 
     as the new tail of the list. Don't forget to handle 
@@ -85,28 +87,53 @@ class DoublyLinkedList:
     current tail's previous node the new tail of the List.
     Returns the value of the removed Node."""
     def remove_from_tail(self):
-        pass
+        value = self.tail.value
+        self.delete(self.tail)
+        return value
 
     """Removes the input node from its current spot in the 
     List and inserts it as the new head node of the List."""
     def move_to_front(self, node):
-        pass
+        if node is self.head:
+            return
+        value = node.value
+        self.delete(node)
+        self.add_to_head(value)
 
     """Removes the input node from its current spot in the 
     List and inserts it as the new tail node of the List."""
     def move_to_end(self, node):
-        pass
+        if node is self.tail:
+            if node is self.tail:
+                return
+            value = node.cur_value
+            self.delete(node)
+            self.add_to_head(value)
 
     """Removes a node from the list and handles cases where
     the node was the head or the tail"""
     def delete(self, node):
-        if self.tail:
-            node.prev.next = node.next
-        if self.head:
-            node.next.prev = node.prev
-        
         self.length -= 1
+
+        if self.head is self.tail:
+            self.head = None
+            self.tail = None
+
+        elif self.head:
+            self.head.next = self.head
+
+        elif node is self.tail:
+            self.tail.prev = self.tail
 
     """Returns the highest value currently in the list"""
     def get_max(self):
-        pass
+        if not self.head:
+            return None
+        max_val = self.head.value
+        cur_value = self.head.value
+
+        while cur_value:
+            if cur_value.value > max_val:
+                max_val = cur_value
+            cur_value = cur_value.next
+        return max_val
