@@ -5,17 +5,22 @@ from doubly_linked_list import DoublyLinkedList
 class Stack:
     def __init__(self):
         self.size = 0
-        # Why is our DLL a good choice to store our elements?
-        # self.storage = ?
+        self.storage = DoublyLinkedList()
 
     def push(self, value):
-        pass
-    # arr[0].push(value)
+        self.size += 1
+        self.storage.add_to_head(value)
 
-    def pop(self):
-        pass
-    # arr[:-1].pop
+    def pop(self, value):
+        if self.size > 0:
+            self.size -= 1
+            self.storage.remove_from_tail()
+        else:
+            return None
+    def len(self, value):
+        return self.size
 
-    def len(self):
-        pass
-    # return len(arr)
+# using list in terms of time complex,
+# cost of adding/removing end of list: 
+# O(1) array is directly space efficient, can fit double arrays
+# for Queue, list vs arry is diff because we add TO/FROM back no matter what
