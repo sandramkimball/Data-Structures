@@ -49,13 +49,12 @@ class DoublyLinkedList:
     """Wraps the given value in a ListNode and inserts it 
     as the new head of the list. Don't forget to handle 
     the old head node's previous pointer accordingly."""
-    def add_to_head(self):
+    def add_to_head(self, value):
         new_node = ListNode(value, None, self.head)
-
-        if not self.head and not self.tail:
+        if not self.head and not self.tail: #already know is first node head/tail
             self.head = new_node
             self.tail = new_node
-        else:
+        else: #we're inserting at front
             self.head.prev = new_node
             self.head = new_node
 
@@ -64,8 +63,8 @@ class DoublyLinkedList:
     """Removes the List's current head node, making the
     current head's next node the new head of the List.
     Returns the value of the removed Node."""
-    def remove_from_head(self, node):
-        value = self.head.balue
+    def remove_from_head(self):
+        value = self.head.value
         self.delete(self.head)
         return value
 
@@ -104,11 +103,10 @@ class DoublyLinkedList:
     List and inserts it as the new tail node of the List."""
     def move_to_end(self, node):
         if node is self.tail:
-            if node is self.tail:
-                return
-            value = node.cur_value
-            self.delete(node)
-            self.add_to_head(value)
+            return
+        value = node.value
+        self.delete(node)
+        self.add_to_tail(value)
 
     """Removes a node from the list and handles cases where
     the node was the head or the tail"""
@@ -119,21 +117,25 @@ class DoublyLinkedList:
             self.head = None
             self.tail = None
 
-        elif self.head:
-            self.head.next = self.head
-
+        elif node is self.head:
+            self.head = node.next
+            node.delete()
         elif node is self.tail:
-            self.tail.prev = self.tail
+            self.tail = node.prev
+            node.delete()
+        else:
+            node.delete()
 
     """Returns the highest value currently in the list"""
     def get_max(self):
         if not self.head:
             return None
+
         max_val = self.head.value
-        cur_value = self.head.value
+        cur_value = self.head
 
         while cur_value:
             if cur_value.value > max_val:
-                max_val = cur_value
+                max_val = cur_value.value
             cur_value = cur_value.next
         return max_val
