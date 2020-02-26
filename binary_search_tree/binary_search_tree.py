@@ -62,16 +62,28 @@ class BinarySearchTree:
             print(f'{self.right.for_each()}')
 
 
-    # Print the value of every node, starting with the given node,
-    # in an iterative breadth first traversal
+    # Print the value of every node:
+
+    #BREADTH = QUEUE - WAIT IN LINE
+    #CHECK IF PATH EXISTS BETWEEN NODES, LAYER BY LAYER, DISTANCE AWAY
     def bft_print(self, node):
         if self.left:
                 print(f'{self.left.for_each()}')
         if self.right:
             print(f'{self.right.for_each()}')
 
-    # Print the value of every node, starting with the given node,
-    # in an iterative depth first traversal
+        queue = new LinkedList()
+        queue.add(start)
+        while len(queue) > 0:
+            Node curr = queue.poll()
+            if seen.contains(curr)
+            print(curr)
+
+            for curr+1
+
+    #DEPTH = STACK - FIRST IN, FIRST OUT
+    #BACKTRACKING, COMPLETE SEARCH, EXHAUSTS ALL POSS. PATHS
+    #PULL NODE, PROCESS IF NOT SEEN, ADD UNSEEN CHILDREN RELATED TO NODE
     def dft_print(self, node):
         pass
 
