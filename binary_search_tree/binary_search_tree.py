@@ -1,5 +1,5 @@
 import sys
-sys.path.append('../queue_and_stack')
+# sys.path.append('../queue_and_stack')
 from dll_queue import Queue
 from dll_stack import Stack
 
@@ -27,16 +27,16 @@ class BinarySearchTree:
     def contains(self, target):
         if target == self.value:
            return True
-        if targt < self.value:
-            if not self.left:
-                return False
+        if target < self.value:
+            if self.left:
+                return self.left.contains(target)
             else:
-                self.left.contains(target)
-        else:
-            if not self.right:
                 return False
+        if target >= self.value:
+            if self.right:
+                return self.right.contains(target)
             else:
-                self.right.contains(target)
+               return False
 
     # Return the maximum value in the tree
     def get_max(self):
@@ -47,46 +47,73 @@ class BinarySearchTree:
 
     # Call the function `cb` on the value of each node
     def for_each(self, cb):
-        cb(self.value):
-            if self.left:
-                self.left.for_each(cb)
-            if self.right:
-                self.right.for_each(cb)
-
-    # Print all the values in order from low to high
-    # Hint:  Use a recursive, depth first traversal
-    def in_order_print(self, node):
+        if self.value:
+            cb(self.value)
         if self.left:
-                print(f'{self.left.for_each()}')
+            self.left.for_each(cb)
         if self.right:
-            print(f'{self.right.for_each()}')
+            self.right.for_each(cb)
+
+    # Print all the values in order from low to high (Use recursive DFT)
+    def in_order_print(self, node):
+        if node:
+            self.in_order_print(node.left)
+            print(node.value)
+            self.in_order_print(node.right)
 
 
     # Print the value of every node:
 
     #BREADTH = QUEUE - WAIT IN LINE
+    # 6 DEGREES OF BACON!!!
     #CHECK IF PATH EXISTS BETWEEN NODES, LAYER BY LAYER, DISTANCE AWAY
     def bft_print(self, node):
-        if self.left:
-                print(f'{self.left.for_each()}')
-        if self.right:
-            print(f'{self.right.for_each()}')
+        #node(value, prev, next)
+        #Queue (size, storage, head, tail)
+        # edges = []... same as node.next, node.prev?
+        # visited = false
+        # parent = null
+        storage = Queue()
+        storage.enqueue(node)
+        # visited = []
 
-        queue = new LinkedList()
-        queue.add(start)
-        while len(queue) > 0:
-            Node curr = queue.poll()
-            if seen.contains(curr)
-            print(curr)
+        while storage.len():
+            current = storage.dequeue()
+            print(current.value)
 
-            for curr+1
+            if current.left:
+                storage.enqueue(current.left)
+                # visited.append(current.left)
 
+            if current.right:
+                storage.enqueue(current.right)
+                # visited.append(current.right)
+            
+            # bft_print(self, current)
+
+
+        
     #DEPTH = STACK - FIRST IN, FIRST OUT
     #BACKTRACKING, COMPLETE SEARCH, EXHAUSTS ALL POSS. PATHS
-    #PULL NODE, PROCESS IF NOT SEEN, ADD UNSEEN CHILDREN RELATED TO NODE
     def dft_print(self, node):
-        pass
+        storage = Stack()
+        storage.push(node)
 
+        while storage.len():
+            current = storage.pop()
+            print(current.value)
+
+            if current.left:
+                storage.push(current.left)
+                # print(self.left)
+                # self.left.bft_print(self.left)
+
+            if current.right:
+                storage.push(current.right)
+                # print(self.right)
+                # self.right.bft_print(self.right)
+
+        # dft_print(self, current)
 
 
 
