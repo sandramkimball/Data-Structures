@@ -1,5 +1,5 @@
 import sys
-sys.path.append('../queue_and_stack')
+# sys.path.append('../queue_and_stack')
 from dll_queue import Queue
 from dll_stack import Stack
 
@@ -10,40 +10,114 @@ class BinarySearchTree:
         self.left = None
         self.right = None
 
-    # Insert the given value into the tree
+    # Insert a value into the tree
     def insert(self, value):
-        pass
+        if value < self.value:
+            if not self.left:
+                self.left = BinarySearchTree(value)
+            else:
+                self.left.insert(value)
+        else:
+            if not self.right:
+                self.right = BinarySearchTree(value)
+            else: 
+                self.right.insert(value)
 
     # Return True if the tree contains the value
-    # False if it does not
     def contains(self, target):
-        pass
+        if target == self.value:
+           return True
+        if target < self.value:
+            if self.left:
+                return self.left.contains(target)
+            else:
+                return False
+        if target >= self.value:
+            if self.right:
+                return self.right.contains(target)
+            else:
+               return False
 
-    # Return the maximum value found in the tree
+    # Return the maximum value in the tree
     def get_max(self):
-        pass
+        if not self.right:
+            return self.value
+        else:
+            return self.right.get_max()
 
     # Call the function `cb` on the value of each node
-    # You may use a recursive or iterative approach
     def for_each(self, cb):
-        pass
+        if self.value:
+            cb(self.value)
+        if self.left:
+            self.left.for_each(cb)
+        if self.right:
+            self.right.for_each(cb)
 
-    # DAY 2 Project -----------------------
-
-    # Print all the values in order from low to high
-    # Hint:  Use a recursive, depth first traversal
+    # Print all the values in order from low to high (Use recursive DFT)
     def in_order_print(self, node):
-        pass
+        if node:
+            self.in_order_print(node.left)
+            print(node.value)
+            self.in_order_print(node.right)
 
-    # Print the value of every node, starting with the given node,
-    # in an iterative breadth first traversal
+
+    # Print the value of every node:
+
+    #BREADTH = QUEUE - WAIT IN LINE
+    # 6 DEGREES OF BACON!!!
+    #CHECK IF PATH EXISTS BETWEEN NODES, LAYER BY LAYER, DISTANCE AWAY
     def bft_print(self, node):
-        pass
+        #node(value, prev, next)
+        #Queue (size, storage, head, tail)
+        # edges = []... same as node.next, node.prev?
+        # visited = false
+        # parent = null
+        storage = Queue()
+        storage.enqueue(node)
+        # visited = []
 
-    # Print the value of every node, starting with the given node,
-    # in an iterative depth first traversal
+        while storage.len():
+            current = storage.dequeue()
+            print(current.value)
+
+            if current.left:
+                storage.enqueue(current.left)
+                # visited.append(current.left)
+
+            if current.right:
+                storage.enqueue(current.right)
+                # visited.append(current.right)
+            
+            # bft_print(self, current)
+
+
+        
+    #DEPTH = STACK - FIRST IN, FIRST OUT
+    #BACKTRACKING, COMPLETE SEARCH, EXHAUSTS ALL POSS. PATHS
     def dft_print(self, node):
-        pass
+        storage = Stack()
+        storage.push(node)
+
+        while storage.len():
+            current = storage.pop()
+            print(current.value)
+
+            if current.left:
+                storage.push(current.left)
+                # print(self.left)
+                # self.left.bft_print(self.left)
+
+            if current.right:
+                storage.push(current.right)
+                # print(self.right)
+                # self.right.bft_print(self.right)
+
+        # dft_print(self, current)
+
+
+
+
 
     # STRETCH Goals -------------------------
     # Note: Research may be required
